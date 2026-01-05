@@ -18,14 +18,14 @@ input {
 
 // ────────────── Output Configuration ──────────────
 
-    output "eDP-2" {
-    mode "1920x1080@120"
+    output "eDP-1" {
+    mode "1920x1080@60"
     scale 1
     position x=0 y=0
 }
 
 output "HDMI-A-1" {
-    mode "1920x1080@100"
+    mode "1920x1080@60"
     scale 1
     position x=1920 y=0
 }
@@ -34,12 +34,17 @@ output "HDMI-A-1" {
 binds {
 
 MOD+Shift+Slash { show-hotkey-overlay; }
-Mod+A hotkey-overlay-title="Open ChatGPT in Firefox" { spawn-sh "firefox https://chat.openai.com"; }
+Mod+A hotkey-overlay-title="Open ChatGPT in chromium" { spawn-sh "chromium https://chat.openai.com"; }
     MOD+RETURN hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "alacritty"; }
-    MOD+B      hotkey-overlay-title="Open Browser: firefox"   { spawn-sh "firefox"; }
-    MOD+ALT+L  hotkey-overlay-title="Lock Screen: swaylock"   { spawn-sh "swaylock"; }
+    MOD+B      hotkey-overlay-title="Open Browser: chromium"   { spawn-sh "chromium"; }
+    MOD+SHIFT+L  hotkey-overlay-title="Lock Screen: sessionMenu"   {         spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"
+
+
+
+}
     MOD+E      hotkey-overlay-title="File Manager: Nautilus"  { spawn-sh "nautilus"; }
-    Mod+SPACE hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+SPACE hotkey-overlay-title="Run an Application: launcher" {         spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"
+ }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
@@ -241,6 +246,5 @@ environment {
 hotkey-overlay {
     skip-at-startup
 }
-
 
 include "./noctalia.kdl"
